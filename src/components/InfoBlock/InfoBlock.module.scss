@@ -1,0 +1,99 @@
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: #F2F2F2;
+    padding: 40px;
+
+    @media (max-width: 1000px) {
+        padding: 30px 20px;
+    }
+}
+
+.info {
+
+    &.modal {
+        display: flex;
+        position: fixed;
+        z-index: 10;
+        right: 0;
+        width: 65%;
+        height: 83%;
+
+    }
+
+    &__text {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #4F4F4F;
+        font-size: 18px;
+
+        @media (max-width: 600px) {
+            font-size: 14px;
+        }
+    }
+
+    &__rep {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        &_name {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 22px;
+        }
+
+        &_main,
+        &_langs {
+            display: flex;
+
+            & span {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        &_main {
+            justify-content: space-between;
+        
+            & span {
+                padding: 9px;
+            }
+        
+            & span:first-child {
+                border-radius: 16px;
+                background-color: #2196F3;
+                color: #F2F2F2;
+            }
+        }
+
+        &_langs {
+            flex-wrap: wrap;
+            gap: 5px;
+        
+            & span {
+                border-radius: 16px;
+                background-color: #dddddd;
+                padding: 7px 9px;
+            }
+        }
+
+        &_description,
+        &_license {
+            padding: 9px;
+            border-radius: 8px;
+            width: 100%;
+            background-color: #2196F3;
+            color: #F2F2F2;
+        }
+    }
+
+    @media (max-width: 850px) {
+        display: none;
+    }
+}

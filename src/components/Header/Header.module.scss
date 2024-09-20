@@ -1,0 +1,11 @@
+.container {
+    background-color: #00838F;
+    height: 80px;
+    padding: 19px 32px;
+}
+.header {
+    &__form {
+        display: flex;
+        gap: 8px;
+    }
+}

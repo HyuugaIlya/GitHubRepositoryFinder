@@ -1,0 +1,34 @@
+.content {
+    flex: 1 1 auto;
+    height: 66px;
+
+    &__grid {
+        display: grid;
+        grid-template-columns: 70% 30%;
+        height: 100%;
+
+        @media (max-width: 850px) {
+            display: flex;
+        }
+    }
+
+    &__text {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        font-size: 46px;
+        color: #4F4F4F;
+        line-height: 66px;
+
+        @media (max-width: 600px) {
+            font-size: 32px;
+        }
+    }
+}
+
+.container {
+    height: 100%;
+}
