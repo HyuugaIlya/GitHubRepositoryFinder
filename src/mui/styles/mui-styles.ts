@@ -2,9 +2,9 @@ import { SxProps, Theme } from "@mui/material"
 
 export const dataGridStyles: SxProps<Theme> = {
     border: 0,
-    '& .MuiDataGrid-virtualScrollerRenderZone': {
-        overflowY: 'scroll'
-    },
+    // '& .MuiDataGrid-virtualScrollerRenderZone': {
+    //     overflowY: 'scroll'
+    // },
     '& .MuiDataGrid-columnHeader .MuiDataGrid-columnSeparator': {
         display: 'none',
     },

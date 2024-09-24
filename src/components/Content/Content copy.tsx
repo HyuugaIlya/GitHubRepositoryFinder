@@ -1,10 +1,15 @@
-//Не работает пагинация???
+import { useEffect, useMemo, useRef, useState } from 'react'
+
 import {
-    useEffect,
-    useMemo,
-    useRef,
-    useState
-} from 'react'
+    TPageInfo,
+    TQuery,
+    TRepository
+} from '../../store'
+
+import { AppDataGrid } from '../../mui/components/AppDataGrid'
+import { InfoBlock } from './../InfoBlock/InfoBlock'
+
+import styles from './Content.module.scss'
 
 import {
     DataGrid,
@@ -23,12 +28,6 @@ import {
     typographyStylesResolver
 } from '../../mui/styles/mui-styles'
 import { columns, rowsConverter } from '../../mui/componentsUtils/data-grid'
-
-import {
-    TPageInfo,
-    TQuery,
-    TRepository
-} from '../../store'
 
 export type TGridRow = {
     id: string,
@@ -55,16 +54,31 @@ type TAppDataGrid = {
     setParams: React.Dispatch<React.SetStateAction<TQuery | null>>,
     setCurrentRep: React.Dispatch<React.SetStateAction<TGridRow | null>>,
 }
-export const AppDataGrid = ({
+type TContent = {
+    reps: TRepository[],
+    isResult: boolean,
+    isFetching: boolean,
+    repositoryCount: number,
+    limit: number,
+    pageInfo: TPageInfo,
+    setParams: React.Dispatch<React.SetStateAction<TQuery | null>>,
+}
+export const Content = ({
     reps = [] satisfies TRepository[],
+    isResult,
     repositoryCount,
     isFetching,
     limit,
     pageInfo,
-    setParams,
-    setCurrentRep,
-    onModalOpen
-}: TAppDataGrid) => {
+    setParams
+}: TContent) => {
+    const [currentRep, setCurrentRep] = useState<TGridRow | null>(null)
+
+    const [openModal, setOpenModal] = useState<boolean>(false)
+
+    const onModalOpen = () => {
+        setOpenModal(!openModal)
+    }
     const [rowCountState, setRowCountState] = useState(repositoryCount || 0)
 
     const mapPageToNextCursor = useRef<{ [page: number]: GridRowId }>({})
@@ -85,7 +99,10 @@ export const AppDataGrid = ({
             }))
             setPaginationModel({ ...newPaginationModel, page: 0 })
             mapPageToNextCursor.current = {}
-        } else if (
+            return
+        }
+
+        if (
             newPaginationModel.page === 0 ||
             mapPageToNextCursor.current[newPaginationModel.page - 1]
         ) {
@@ -148,25 +165,66 @@ export const AppDataGrid = ({
         setCurrentRep(p.row)
     }
 
+    useEffect(() => {
+        openModal
+            ? window.document.body.style.overflowY = 'hidden'
+            : window.document.body.style.overflowY = 'auto'
+    }, [openModal])
+
+    useEffect(() => {
+        if (!match850) setOpenModal(false)
+    }, [match850])
+
     return (
-        <Paper sx={paperGridStyles}>
-            <Typography component={'h2'} sx={typographyGridStyles}>
-                Результат поиска
-            </Typography>
-            <DataGrid
-                rows={rowsConverter(reps)}
-                onRowClick={handleRowClick}
-                onRowCountChange={(newRowCount) => setRowCountState(newRowCount)}
-                columns={columns}
-                rowCount={rowCountState}
-                paginationMode="server"
-                loading={isFetching}
-                paginationMeta={paginationMeta}
-                onPaginationModelChange={handlePaginationModelChange}
-                paginationModel={paginationModel}
-                pageSizeOptions={[10, 20, 50]}
-                sx={dataGridStyles}
-            />
-        </Paper>
+        <main className={styles.content}>
+            <div className={styles.container}>
+                {
+                    isResult
+                        ? <div
+                            className={styles.content__grid}
+                        >
+                            {!reps.length ? 'Репозитории не найдены' : <>
+                                <AppDataGrid
+                                    isFetching={isFetching}
+                                    limit={limit}
+                                    pageInfo={pageInfo}
+                                    repositoryCount={repositoryCount}
+                                    reps={reps}
+                                    setCurrentRep={setCurrentRep}
+                                    setParams={setParams}
+                                    onModalOpen={onModalOpen}
+                                />
+                                {/* <Paper sx={paperGridStyles}>
+                                    <Typography component={'h2'} sx={typographyGridStyles}>
+                                        Результат поиска
+                                    </Typography>
+                                    <DataGrid
+                                        rows={rowsConverter(reps)}
+                                        onRowClick={handleRowClick}
+                                        onRowCountChange={(newRowCount) => setRowCountState(newRowCount)}
+                                        columns={columns}
+                                        rowCount={rowCountState}
+                                        paginationMode="server"
+                                        loading={isFetching}
+                                        paginationMeta={paginationMeta}
+                                        onPaginationModelChange={handlePaginationModelChange}
+                                        paginationModel={paginationModel}
+                                        pageSizeOptions={[10, 20, 50]}
+                                        sx={dataGridStyles}
+                                    />
+                                </Paper> */}
+                                <InfoBlock
+                                    rep={currentRep}
+                                    isOpen={openModal}
+                                    onModalOpen={onModalOpen}
+                                />
+                            </>}
+                        </div>
+                        : <span className={styles.content__text}>
+                            Добро пожаловать
+                        </span>
+                }
+            </div>
+        </main>
     )
 }

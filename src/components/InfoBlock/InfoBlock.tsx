@@ -1,4 +1,9 @@
 import clsx from 'clsx'
+
+import IconButton from '@mui/material/IconButton'
+import { GridCloseIcon } from '@mui/x-data-grid'
+import { Chip } from '@mui/material'
+
 import { TGridRow } from '../../mui/components/AppDataGrid'
 
 import styles from './InfoBlock.module.scss'
@@ -19,20 +24,27 @@ export const InfoBlock = ({
                 {rep ? <div className={styles.info__rep}>
                     <h2 className={styles.info__rep_name}>
                         <span>{rep.name || 'Отсутствует'}</span>
-                        {isOpen && <svg onClick={onModalOpen} width="20px" height="20px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3 21.32L21 3.32001" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M3 3.32001L21 21.32" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        }
+                        <IconButton onClick={onModalOpen} aria-label="close">
+                            <GridCloseIcon />
+                        </IconButton>
                     </h2>
                     <p className={styles.info__rep_main}>
-                        <span>{rep.primaryLanguage || 'Отсутствует'}</span>
+                        <Chip
+                            component={'span'}
+                            sx={{
+                                backgroundColor: '#2196F3',
+                                color: '#F2F2F2'
+                            }}
+                            label={rep.primaryLanguage || 'Отсутствует'}
+                        />
                         <span>{(`⭐ ` + rep.stargazerCount) || 'Отсутствует'}</span>
                     </p>
                     <p className={styles.info__rep_langs}>
-                        {rep.languages?.nodes?.map((l, i) => <span key={i}>
-                            {l.name}
-                        </span>) || 'Отсутствуют'}
+                        {rep.languages?.nodes?.map((l, i) => <Chip
+                            key={i}
+                            component={'span'}
+                            label={l.name}
+                        />) || 'Отсутствуют'}
                     </p>
                     <p className={styles.info__rep_license}>
                         {rep.license || 'Лицензия отсутствует'}

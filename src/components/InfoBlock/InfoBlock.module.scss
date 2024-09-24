@@ -12,13 +12,9 @@
 .info {
 
     &.modal {
-        display: flex;
-        position: fixed;
-        z-index: 10;
+        visibility: visible;
         right: 0;
-        width: 65%;
-        height: 83%;
-
+        opacity: 1;
     }
 
     &__text {
@@ -60,27 +56,11 @@
 
         &_main {
             justify-content: space-between;
-        
-            & span {
-                padding: 9px;
-            }
-        
-            & span:first-child {
-                border-radius: 16px;
-                background-color: #2196F3;
-                color: #F2F2F2;
-            }
         }
 
         &_langs {
             flex-wrap: wrap;
             gap: 5px;
-        
-            & span {
-                border-radius: 16px;
-                background-color: #dddddd;
-                padding: 7px 9px;
-            }
         }
 
         &_description,
@@ -94,6 +74,13 @@
     }
 
     @media (max-width: 850px) {
-        display: none;
+        visibility: hidden;
+        position: fixed;
+        right: -100%;
+        width: 65%;
+        height: 83%;
+        opacity: 0;
+        transition: all 0.3s;
+        z-index: 10;
     }
 }
