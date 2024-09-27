@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 import clsx from 'clsx'
 
 import IconButton from '@mui/material/IconButton'
@@ -13,7 +15,7 @@ type TInfoBlock = {
     isOpen: boolean,
     onModalOpen: () => void
 }
-export const InfoBlock = ({
+export const InfoBlock = memo(({
     rep,
     isOpen,
     onModalOpen
@@ -58,4 +60,4 @@ export const InfoBlock = ({
             </div>
         </section>
     )
-}
+})

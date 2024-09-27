@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField'
 
 import styles from './Header.module.scss'
 import { textFieldStyles } from '../../mui/styles/mui-styles'
+import { memo } from 'react'
 
 
 type TForm = {
@@ -17,7 +18,7 @@ type TForm = {
 type THeader = {
     setParams: React.Dispatch<React.SetStateAction<TQuery | null>>
 }
-export const Header = ({
+export const Header = memo(({
     setParams
 }: THeader) => {
     const {
@@ -68,4 +69,4 @@ export const Header = ({
             </div>
         </header>
     )
-}
+})

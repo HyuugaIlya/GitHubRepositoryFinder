@@ -1,4 +1,5 @@
 import {
+    useCallback,
     useEffect,
     useMemo,
     useRef,
@@ -165,11 +166,11 @@ export const Content = ({
         setOpenModal((match850 && currentRep) ? true : false)
     }, [match850, currentRep])
 
-    const handleRep = () => {
+    const handleRep = useCallback(() => {
         if (match850) setOpenModal(false)
         setRowSelectionModel([])
         setCurrentRep(null)
-    }
+    }, [match850])
 
     const handleRowSelection = (newRowSelectionModel: GridRowSelectionModel) => {
         if (!newRowSelectionModel.length) {
