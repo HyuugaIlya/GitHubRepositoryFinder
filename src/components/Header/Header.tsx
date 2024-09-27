@@ -1,15 +1,18 @@
+import { memo } from 'react'
+
 import {
     SubmitHandler,
     useForm
 } from 'react-hook-form'
+
 import { TQuery } from '../../store'
 
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
-import styles from './Header.module.scss'
 import { textFieldStyles } from '../../mui/styles/mui-styles'
-import { memo } from 'react'
+
+import styles from './Header.module.scss'
 
 
 type TForm = {

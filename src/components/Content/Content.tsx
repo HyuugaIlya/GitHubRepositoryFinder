@@ -12,7 +12,6 @@ import {
     TRepository
 } from '../../store'
 
-// import { AppDataGrid } from '../../mui/components/AppDataGrid'
 import { InfoBlock } from './../InfoBlock/InfoBlock'
 
 import {
@@ -185,9 +184,7 @@ export const Content = ({
             <div className={styles.container}>
                 {
                     isResult
-                        ? <div
-                            className={styles.content__grid}
-                        >
+                        ? <div className={styles.content__grid}>
                             {!reps.length ? 'Репозитории не найдены' : <>
                                 <Paper sx={paperGridStyles}>
                                     <Typography component={'h2'} sx={typographyGridStyles}>

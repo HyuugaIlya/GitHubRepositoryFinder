@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton'
 import { GridCloseIcon } from '@mui/x-data-grid'
 import { Chip } from '@mui/material'
 
-import { TGridRow } from '../../mui/components/AppDataGrid'
+import { TGridRow } from '../Content/Content'
 
 import styles from './InfoBlock.module.scss'
 
